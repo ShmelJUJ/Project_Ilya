@@ -32,10 +32,11 @@ public:
 	}
 
 	T operator()(T x) {
+	        T base = 1;
 		T ans = 0;
 		for (int i = 0; i < size; ++i) {
-			ans += x * coefficients[i];
-			x *= x;
+			ans += base * coefficients[i];
+			base *= x;
 		}
 		return ans;
 	}
