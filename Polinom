@@ -6,7 +6,7 @@ template<class T>
 class Polinom
 {
 public:
-vector<T> coefficients;
+	vector<T> coefficients;
 	int size;
 
 	Polinom() {
@@ -73,7 +73,8 @@ int main()
 	vector<int> x = { 6,5,4 };
 	Polinom<int> p(3, x);
 	Polinom<int> q(3, { 3,2,1 });
-
+	
+	cout << p(1) << endl;	
 	(p + q).print();
 	(p * q).print();
 }
