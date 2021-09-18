@@ -5,9 +5,8 @@ using namespace std;
 template<class T>
 class Polinom
 {
-	vector<T> coefficients;
 public:
-
+vector<T> coefficients;
 	int size;
 
 	Polinom() {
@@ -35,7 +34,7 @@ public:
 	T operator()(T x) {
 		T ans = 0;
 		for (int i = 0; i < size; ++i) {
-			ans += x * coefficients[size - i - 1];
+			ans += x * coefficients[i];
 			x *= x;
 		}
 		return ans;
