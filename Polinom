@@ -1,0 +1,80 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+template<class T>
+class Polinom
+{
+	vector<T> coefficients;
+public:
+
+	int size;
+
+	Polinom() {
+		size = 0;
+	}
+
+	Polinom(int n, const vector<T>& el) {
+		change(n, el);
+	}
+
+	void print() const {
+		for (int i = 0; i < size; ++i) {
+			cout <<  coefficients[i] << " ";
+		}
+		cout << endl;
+	}
+
+	void change(int n, const vector<T>& el) {
+		size = n;
+		coefficients.resize(n);
+		for (int i = 0; i < n; ++i)
+			coefficients[i] = el[i];
+	}
+
+	T operator()(T x) {
+		T ans = 0;
+		for (int i = 0; i < size; ++i) {
+			ans += x * coefficients[size - i - 1];
+			x *= x;
+		}
+		return ans;
+	}
+
+	Polinom operator+ (const Polinom& p) {
+		Polinom q;
+
+		q.size = (size > p.size ? size : p.size);
+		q.coefficients.resize(q.size);
+
+		for (int i = 0; i < q.size; i++) {
+			q.coefficients[i] = (size > i ? coefficients[i] : 0) + (p.size > i ? p.coefficients[i] : 0);
+		}
+		return q;
+	}
+
+	Polinom operator*(const Polinom& p) {
+		Polinom q;
+		q.size = (size - 1) + p.size;
+		q.coefficients.resize(q.size);
+
+		for (int i = 0; i < size; ++i) {
+			for (int j = 0; j < p.size; ++j) {
+				q.coefficients[i + j] += coefficients[i] * p.coefficients[j];
+			}
+		}
+		return q;
+	}
+
+};
+
+
+int main()
+{
+	vector<int> x = { 6,5,4 };
+	Polinom<int> p(3, x);
+	Polinom<int> q(3, { 3,2,1 });
+
+	(p + q).print();
+	(p * q).print();
+}
